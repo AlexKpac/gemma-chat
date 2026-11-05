@@ -3,38 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-  <meta name="theme-color" content="#07071a">
+  <meta name="theme-color" content="#f6f7f9">
   <title>Gemma Chat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Живой фон -->
-  <div class="bg" aria-hidden="true">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
-    <span class="blob b4"></span>
-    <div class="grain"></div>
-  </div>
-
   <!-- Экран входа -->
-  <section id="login-view" class="login hidden">
-    <form id="login-form" class="glass login-card" autocomplete="on">
-      <div class="orb orb-lg" aria-hidden="true"></div>
+  <section id="login-view" class="center-screen hidden">
+    <form id="login-form" class="card auth-card" autocomplete="on">
+      <div class="logo" aria-hidden="true">G</div>
       <h1>Gemma Chat</h1>
       <p class="muted">Войдите, чтобы начать общение</p>
 
-      <div class="field glass-inset">
+      <label class="field">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v1.5h16V19c0-2.8-3.6-5-8-5Z"/></svg>
         <input id="login" name="username" autocomplete="username" placeholder="Логин" required>
-      </div>
-      <div class="field glass-inset">
+      </label>
+      <label class="field">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9V7A5 5 0 0 0 7 7v2H5v12h14V9h-2ZM9 7a3 3 0 0 1 6 0v2H9V7Zm3 10.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg>
         <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Пароль" required>
-      </div>
+      </label>
 
       <button type="submit" id="login-btn" class="btn-primary">Войти</button>
       <div id="login-error" class="error" role="alert"></div>
@@ -43,21 +34,22 @@
 
   <!-- Чат -->
   <section id="chat-view" class="chat-wrap hidden">
-    <div class="glass chat">
+    <div class="card chat">
       <header class="topbar">
         <div class="brand">
-          <div class="orb" aria-hidden="true"></div>
+          <div class="logo logo-sm" aria-hidden="true">G</div>
           <div>
             <div class="title">Gemma 3 27B</div>
             <div class="muted small" id="meta"></div>
           </div>
         </div>
         <div class="actions">
-          <button class="btn-glass" id="new-chat" title="Очистить чат и память">
+          <button class="btn-ghost" id="new-chat" title="Очистить чат">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
             <span>Новый чат</span>
           </button>
-          <button class="btn-glass icon" id="logout" title="Выйти">
+          <button class="btn-ghost icon" id="theme-toggle" title="Переключить тему"></button>
+          <button class="btn-ghost icon" id="logout" title="Выйти">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
           </button>
         </div>
@@ -65,13 +57,13 @@
 
       <main id="messages" class="messages">
         <div class="empty" id="empty">
-          <div class="orb orb-lg" aria-hidden="true"></div>
+          <div class="logo logo-lg" aria-hidden="true">G</div>
           <h2>Чем могу помочь?</h2>
-          <p class="muted">Модель помнит только предыдущий вопрос и ответ.<br>Длина ответа — до 1000 токенов.</p>
+          <p class="muted">Каждый запрос отправляется без истории переписки.<br>Длина ответа — до 1000 токенов.</p>
         </div>
       </main>
 
-      <form id="chat-form" class="composer glass-inset">
+      <form id="chat-form" class="composer">
         <textarea id="input" rows="1" placeholder="Спросите что-нибудь…" required></textarea>
         <button type="submit" id="send" class="send" title="Отправить (Enter)">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
@@ -81,6 +73,8 @@
     </div>
   </section>
 
-  <script src="/app.js"></script>
+  <script src="env.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
