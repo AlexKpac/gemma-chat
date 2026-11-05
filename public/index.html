@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemma Chat</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Экран входа -->
+  <section id="login-view" class="login hidden">
+    <form id="login-form" class="card" autocomplete="on">
+      <h1>Gemma Chat</h1>
+      <p class="muted">Войдите, чтобы продолжить</p>
+      <label>Логин
+        <input id="login" name="username" autocomplete="username" required>
+      </label>
+      <label>Пароль
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit" id="login-btn">Войти</button>
+      <div id="login-error" class="error"></div>
+    </form>
+  </section>
+
+  <!-- Чат -->
+  <section id="chat-view" class="chat hidden">
+    <header class="topbar">
+      <div>
+        <strong>Gemma 3 27B</strong>
+        <span class="muted small" id="meta"></span>
+      </div>
+      <div class="actions">
+        <button class="ghost" id="new-chat" title="Очистить чат и память">Новый чат</button>
+        <button class="ghost" id="logout">Выйти</button>
+      </div>
+    </header>
+
+    <main id="messages" class="messages">
+      <div class="empty" id="empty">
+        <h2>Чем могу помочь?</h2>
+        <p class="muted">Модель помнит только предыдущий вопрос и ответ. Длина ответа — до 1000 токенов.</p>
+      </div>
+    </main>
+
+    <form id="chat-form" class="composer">
+      <textarea id="input" rows="1" placeholder="Напишите сообщение… (Enter — отправить, Shift+Enter — новая строка)" required></textarea>
+      <button type="submit" id="send">➤</button>
+    </form>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>

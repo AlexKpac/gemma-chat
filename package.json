@@ -1,0 +1,14 @@
+{
+  "name": "gemma-chat",
+  "version": "1.0.0",
+  "description": "Простой чат с Gemma 3 27B через OpenRouter с входом по логину/паролю",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
