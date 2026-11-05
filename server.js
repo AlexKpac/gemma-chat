@@ -12,9 +12,29 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+// ---------- Мини-загрузчик .env (без зависимостей) ----------
+// Значения из .env применяются, только если переменная не задана в окружении
+try {
+  const envFile = path.join(__dirname, '.env');
+  for (const line of fs.readFileSync(envFile, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+    if (!m) continue;
+    let val = m[2];
+    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      val = val.slice(1, -1);
+    }
+    if (!(m[1] in process.env)) process.env[m[1]] = val;
+  }
+} catch { /* .env необязателен */ }
+
 // ---------- Настройки из переменных окружения ----------
-const PORT = Number(process.env.PORT) || 8080;
-const HOST = process.env.HOST || '0.0.0.0';
+// CLI-аргументы (--port/--host) переопределяют переменные окружения
+function cliArg(name) {
+  const i = process.argv.indexOf('--' + name);
+  return i !== -1 && process.argv[i + 1] ? process.argv[i + 1] : null;
+}
+const PORT = Number(cliArg('port') || process.env.PORT) || 8080;
+const HOST = cliArg('host') || process.env.HOST || '0.0.0.0';
 const API_KEY = process.env.OPENROUTER_API_KEY || '';
 const MODEL = process.env.MODEL || 'google/gemma-3-27b-it';
 const MAX_TOKENS = 1000;
