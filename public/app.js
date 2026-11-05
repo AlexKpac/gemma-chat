@@ -56,6 +56,10 @@ $('login-form').addEventListener('submit', async (e) => {
     showChat(await api('/api/me'));
   } catch (err) {
     $('login-error').textContent = err.message;
+    const card = $('login-form');
+    card.classList.remove('shake');
+    void card.offsetWidth; // перезапуск анимации
+    card.classList.add('shake');
   } finally {
     $('login-btn').disabled = false;
   }
@@ -134,10 +138,20 @@ function addMessage(role, text, note) {
     n.textContent = note;
     bubble.appendChild(n);
   }
+  if (role === 'assistant') {
+    const avatar = document.createElement('div');
+    avatar.className = 'orb avatar';
+    wrap.appendChild(avatar);
+  }
   wrap.appendChild(bubble);
   $('messages').appendChild(wrap);
-  $('messages').scrollTop = $('messages').scrollHeight;
+  scrollToBottom();
   return wrap;
+}
+
+function scrollToBottom() {
+  const box = $('messages');
+  requestAnimationFrame(() => { box.scrollTop = box.scrollHeight; });
 }
 
 function addTyping() {
