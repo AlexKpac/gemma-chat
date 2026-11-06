@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#f6f7f9">
   <title>Gemma Chat</title>
+  <link rel="icon" href="logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,16 +17,16 @@
     <div class="card chat">
       <header class="topbar">
         <div class="brand">
-          <div class="logo logo-sm" aria-hidden="true">G</div>
+          <img class="logo logo-sm" src="logo.jpg" alt="Gemma Chat">
           <div>
             <div class="title">Gemma 3 27B</div>
             <div class="muted small" id="meta"></div>
           </div>
         </div>
         <div class="actions">
-          <button class="btn-ghost" id="new-chat" title="Очистить чат">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-            <span>Новый чат</span>
+          <button class="btn-ghost" id="clear-history" title="Стереть все сообщения">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m3 0-1 13a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 7h12ZM10 11v6M14 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <span>Очистить чат</span>
           </button>
           <button class="btn-ghost icon" id="theme-toggle" title="Переключить тему"></button>
         </div>
@@ -33,7 +34,7 @@
 
       <main id="messages" class="messages">
         <div class="empty" id="empty">
-          <div class="logo logo-lg" aria-hidden="true">G</div>
+          <img class="logo logo-lg" src="logo.jpg" alt="Gemma Chat">
           <h2>Чем могу помочь?</h2>
           <p class="muted">Каждый запрос отправляется без истории переписки.<br>Длина ответа — до 1000 токенов.</p>
         </div>

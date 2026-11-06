@@ -72,15 +72,11 @@ svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 }
 .logo {
   width: 44px; height: 44px; border-radius: 12px; flex: none;
-  display: grid; place-items: center;
-  background: var(--accent); color: #fff;
-  font-weight: 700; font-size: 20px;
+  display: block; object-fit: cover;
   margin: 0 auto;
 }
-html[data-theme="dark"] .logo { color: #17191d; }
-.logo svg { width: 22px; height: 22px; }
-.logo-sm { width: 34px; height: 34px; font-size: 15px; border-radius: 9px; margin: 0; }
-.logo-lg { width: 56px; height: 56px; font-size: 26px; border-radius: 14px; margin-bottom: 14px; }
+.logo-sm { width: 34px; height: 34px; border-radius: 9px; margin: 0; }
+.logo-lg { width: 72px; height: 72px; border-radius: 18px; margin: 0 auto 14px; box-shadow: var(--shadow-card); }
 
 /* ---------- Кнопки ---------- */
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
@@ -141,9 +137,7 @@ html[data-theme="dark"] .btn-primary { color: #17191d; }
 .msg { display: flex; gap: 10px; align-items: flex-start; flex: none; width: 100%; }
 .msg .avatar {
   width: 28px; height: 28px; margin-top: 2px; border-radius: 8px; flex: none;
-  display: grid; place-items: center;
-  background: var(--accent-soft); color: var(--accent);
-  font-weight: 700; font-size: 13px;
+  object-fit: cover; display: block;
 }
 .msg.user { justify-content: flex-end; }
 

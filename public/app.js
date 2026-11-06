@@ -47,7 +47,7 @@ function init() {
   $('input').focus();
 }
 
-$('new-chat').addEventListener('click', () => {
+$('clear-history').addEventListener('click', () => {
   $('messages').querySelectorAll('.msg').forEach((n) => n.remove());
   $('empty').classList.remove('hidden');
 });
@@ -112,9 +112,10 @@ function addMessage(role, text, note) {
     bubble.appendChild(n);
   }
   if (role === 'assistant') {
-    const avatar = document.createElement('div');
+    const avatar = document.createElement('img');
     avatar.className = 'avatar';
-    avatar.textContent = 'G';
+    avatar.src = 'logo.jpg';
+    avatar.alt = 'G';
     wrap.appendChild(avatar);
   }
   wrap.appendChild(bubble);
