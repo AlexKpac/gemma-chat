@@ -135,12 +135,12 @@ function addTyping() {
   return el;
 }
 
-// ---------- OpenRouter (напрямую из браузера) ----------
+// ---------- Запрос к модели (OpenAI-совместимый API, напрямую из браузера) ----------
 async function askModel(message) {
   // Без истории: модель видит только текущее сообщение
   const messages = [{ role: 'user', content: message }];
 
-  const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const r = await fetch(CONFIG.apiBase.replace(/\/$/, '') + '/chat/completions', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${getKey()}`,
@@ -152,7 +152,7 @@ async function askModel(message) {
   const data = await r.json().catch(() => ({}));
   if (!r.ok) {
     const msg = data.error?.message || `HTTP ${r.status}`;
-    const err = new Error(r.status === 401 ? 'Ключ OpenRouter отклонён' : `Ошибка модели: ${msg}`);
+    const err = new Error(r.status === 401 ? 'Ключ API отклонён' : `Ошибка модели: ${msg}`);
     err.status = r.status;
     throw err;
   }
