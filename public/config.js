@@ -1,39 +1,31 @@
 'use strict';
 
 /**
- * Конфигурация Gemma Chat (чистый фронтенд, без бэкенда).
- *
- * Пользователи задаются как «логин → SHA-256 хэш от строки "логин:пароль"».
- * Пароль в открытом виде здесь не хранится и в браузер не попадает.
- *
- * Посчитать хэш для нового пользователя (в терминале):
- *   node -e "console.log(require('crypto').createHash('sha256').update('ЛОГИН:ПАРОЛЬ').digest('hex'))"
- * или в консоли браузера:
- *   crypto.subtle.digest('SHA-256', new TextEncoder().encode('ЛОГИН:ПАРОЛЬ'))
- *     .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))
+ * Конфигурация Gemma Chat (чистый фронтенд, без бэкенда и без авторизации).
  */
 const CONFIG = {
-  users: {
-    // логин: sha256("логин:пароль")  — по умолчанию admin / admin123 (поменяйте!)
-    admin: 'bf6b5bdb74c79ece9fc0ad0ac9fb0359f9555d4f35a83b2e6ec69ae99e09603d',
-  },
-
   // Модель OpenRouter
   model: 'google/gemma-3-27b-it',
 
   // Лимит ответа
   maxTokens: 1000,
 
-  // Ключ OpenRouter, встроенный на хостинге (см. README: генерируется env.js
-  // из переменной окружения OPENROUTER_API_KEY при деплое).
-  // Если ключ задан здесь — экран ввода ключа не показывается.
+  // Ключ OpenRouter, встроенный в репозиторий.
+  // Это НЕ шифрование, а обфускация (XOR 0x5A + base64): ключ восстанавливается
+  // в браузере, значит его может достать любой посетитель сайта.
+  // Реальная защита — лимиты бюджета на стороне OpenRouter.
+  // Закодировать новый ключ:
+  //   node -e "console.log(Buffer.from([...'sk-or-...'].map(c=>c.charCodeAt(0)^0x5A)).toString('base64'))"
+  apiKeyEnc: 'KTF3NSh3LGt3bTlva2lqajg4OWxraTg5am84ajg8Pm5vbjs7Y2xpYjk8bTs+bjw/aDg8Yj8/OGJuP2I+amtpbTg5P2I/bms+aQ==',
+
+  // Явный ключ (не рекомендуется, оставлено для локальных экспериментов)
   apiKey: '',
 };
 
 // Переопределения, подставленные хостингом из переменных окружения
 // (файл public/env.js генерируется при деплое и не коммитится).
 if (typeof ENV !== 'undefined' && ENV) {
-  if (ENV.apiKey) CONFIG.apiKey = ENV.apiKey;
+  if (ENV.apiKey) { CONFIG.apiKey = ENV.apiKey; CONFIG.apiKeyEnc = ''; }
   if (ENV.model) CONFIG.model = ENV.model;
   if (ENV.maxTokens) CONFIG.maxTokens = ENV.maxTokens;
 }
